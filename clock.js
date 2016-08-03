@@ -270,8 +270,8 @@ class Table
 }
 
 $(function() {
-    var rows = 150;
-    var columns = 300;
+    var rows = 100;
+    var columns = 200;
     var table = new Table(rows, columns)
         .render('#content', 'display');
 
