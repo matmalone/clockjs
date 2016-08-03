@@ -1,3 +1,9 @@
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 class Table 
 {
     constructor(rows, columns)
@@ -6,6 +12,15 @@ class Table
         this.columns = columns;
         this.container = null;
         this.table = null;
+        this.cursor = 0;
+
+        // 5% padding on left and right
+        this.paddingX = Math.round(this.rows * .05);
+        // 10% padding on top and bottom
+        this.paddingY = Math.round(this.rows * .1);
+        // 1% line width
+        this.lineWidth = Math.round(this.rows * .02);
+
     }
 
     render(container, id)
@@ -49,13 +64,62 @@ class Table
     off(x, y)
     {
         $("#table-cell-" + y + "-" + x).removeClass('table-cell-on');
+        return this;
+    }
+
+    print(str)
+    {
+        // reset the cursor to the start
+        this.cursor = 0;
+
+        for (var i = 0; i < str.length; i++)
+        {
+            var c = str[i];
+            console.log(c);
+            this.printChar(c);
+        }
+
+        return this;
+    }
+
+    printChar(c)
+    {
+        if ('0' == c) this.print0();
+        else if ('1' == c) this.print1();
+        else alert("ERROR: Character '" + c + "' not printable!");
+
+        return this;
+    }
+
+    print1()
+    {
+        this.cursor += this.paddingX;
+
+        for (var x = 0; x < this.lineWidth; x++)
+        {
+            for (var y = this.paddingY; y < this.rows - this.paddingY; y++)
+            {
+                this.on(this.cursor, y);
+            }
+            this.cursor++;
+        }
+    }
+
+    print0()
+    {
     }
 }
 
 $(function() {
-    var table = new Table(200, 200)
+    var rows = 150;
+    var columns = 300;
+    var table = new Table(rows, columns)
         .render('#content', 'display');
-    
-    table.on(3, 3);
-    table.off(3, 3);
+
+    table.print("11");
+
+    for (i = 0; i < 100; i++)
+    {
+        // table.on(getRandomInt(0, columns-1), getRandomInt(0, rows-1));
+    }
 });
