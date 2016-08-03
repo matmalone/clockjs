@@ -1,3 +1,5 @@
+"use strict";
+
 class Table 
 {
     constructor(rows, columns)
@@ -194,48 +196,19 @@ class Table
         this.drawHorizontalBottom();
     }
 
-    drawVertical(xOffset)
+    // private core function to draw a vertical line
+    drawVertical(xOffset, yOffset)
     {
         for (var x = this.cursor + xOffset; x < this.cursor + xOffset + this.lineWidth; x++)
         {
-            for (var y = this.paddingY; y < this.lineLengthY + this.paddingY; y++)
+            for (var y = this.paddingY + yOffset; y < this.lineLengthY + this.paddingY + yOffset; y++)
             {
                 this.on(x, y);
             }
         }
     }
 
-    drawTopLeft()
-    {
-        this.drawVertical(0);
-    }
-
-    drawTopRight()
-    {
-        this.drawVertical(this.lineLengthX);
-    }
-
-    drawBottom(xOffset)
-    {
-        for (var x = this.cursor + xOffset; x < this.cursor + xOffset + this.lineWidth; x++)
-        {
-            for (var y = this.rows - this.paddingY; y > (this.rows - this.paddingY) - this.lineLengthY; y--)
-            {
-                this.on(x, y);
-            }
-        }
-    }
-
-    drawBottomLeft()
-    {
-        this.drawBottom(0);
-    }
-
-    drawBottomRight()
-    {
-        this.drawBottom(this.lineLengthX);
-    }
-
+    // private core function to draw a horizontal line
     drawHorizontal(yOffset)
     {
         for (var x = this.cursor + this.lineWidth + 1; x < this.cursor + this.lineLengthX - 1; x++)
@@ -245,6 +218,26 @@ class Table
                 this.on(x, y);
             }
         }        
+    }
+
+    drawTopLeft()
+    {
+        this.drawVertical(0, 0);
+    }
+
+    drawTopRight()
+    {
+        this.drawVertical(this.lineLengthX, 0);
+    }
+
+    drawBottomLeft()
+    {
+        this.drawVertical(0, this.lineLengthY + 1);
+    }
+
+    drawBottomRight()
+    {
+        this.drawVertical(this.lineLengthX, this.lineLengthY + 1);
     }
 
     drawHorizontalTop()
