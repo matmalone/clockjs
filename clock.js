@@ -197,7 +197,7 @@ class Table
     }
 
     // private core function to draw a vertical line
-    drawVertical(xOffset, yOffset)
+    _drawVertical(xOffset, yOffset)
     {
         for (var x = this.cursor + xOffset; x < this.cursor + xOffset + this.lineWidth; x++)
         {
@@ -209,7 +209,7 @@ class Table
     }
 
     // private core function to draw a horizontal line
-    drawHorizontal(yOffset)
+    _drawHorizontal(yOffset)
     {
         for (var x = this.cursor + this.lineWidth + 1; x < this.cursor + this.lineLengthX - 1; x++)
         {
@@ -222,37 +222,37 @@ class Table
 
     drawTopLeft()
     {
-        this.drawVertical(0, 0);
+        this._drawVertical(0, 0);
     }
 
     drawTopRight()
     {
-        this.drawVertical(this.lineLengthX, 0);
+        this._drawVertical(this.lineLengthX, 0);
     }
 
     drawBottomLeft()
     {
-        this.drawVertical(0, this.lineLengthY + 1);
+        this._drawVertical(0, this.lineLengthY + 1);
     }
 
     drawBottomRight()
     {
-        this.drawVertical(this.lineLengthX, this.lineLengthY + 1);
+        this._drawVertical(this.lineLengthX, this.lineLengthY + 1);
     }
 
     drawHorizontalTop()
     {
-        this.drawHorizontal(0);
+        this._drawHorizontal(0);
     }
 
     drawHorizontalMiddle()
     {
-        this.drawHorizontal(this.lineLengthY);
+        this._drawHorizontal(this.lineLengthY);
     }
 
     drawHorizontalBottom()
     {
-        this.drawHorizontal(this.lineLengthY * 2);
+        this._drawHorizontal(this.lineLengthY * 2);
     }
 }
 
