@@ -71,8 +71,7 @@ class Table
 
     print(str)
     {
-        // reset the cursor to the start
-        this.cursor = this.paddingX;
+        this.reset();
 
         for (var i = 0; i < str.length; i++)
         {
@@ -80,6 +79,16 @@ class Table
             this.printChar(c);
         }
 
+        return this;
+    }
+
+    reset()
+    {
+        // reset the cursor to the start
+        this.cursor = this.paddingX;
+
+        // turn all the table cells off
+        $(".table-cell").removeClass('table-cell-on');
         return this;
     }
 
@@ -266,5 +275,9 @@ $(function() {
     var table = new Table(rows, columns)
         .render('#content', 'display');
 
-    table.print("67890");
+
+    window.setInterval(function() {
+        var time = moment().format('HHmmss')
+        table.print(time);
+    }, 1000);
 });
