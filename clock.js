@@ -15,13 +15,13 @@ class Table
         this.cursor = 0;
 
         // 5% padding on left and right
-        this.paddingX = Math.round(this.rows * .05);
+        this.paddingX = Math.round(this.rows * .1);
         // 10% padding on top and bottom
         this.paddingY = Math.round(this.rows * .1);
         // 1% line width
         this.lineWidth = Math.round(this.rows * .02);
 
-        this.lineLengthX = this.paddingX * 4;
+        this.lineLengthX = this.paddingX * 2;
         this.lineLengthY = Math.round((this.rows - this.paddingY * 2) / 2);
     }
 
@@ -108,14 +108,19 @@ class Table
         // }
 
         this.drawTopLeft();
+        this.drawTopRight();
         this.drawBottomLeft();
+        this.drawBottomRight();
+        this.drawHorizontalTop();
+        this.drawHorizontalMiddle();
+        this.drawHorizontalBottom();
     }
 
-    drawTopLeft()
+    drawVertical(xOffset)
     {
-        var cursor = this.cursor;
+        var cursor = this.cursor + xOffset;
 
-        for (var x = cursor; x < this.cursor + this.lineWidth; x++)
+        for (var x = cursor; x < this.cursor + xOffset + this.lineWidth; x++)
         {
             for (var y = this.paddingY; y < this.lineLengthY + this.paddingY; y++)
             {
@@ -125,11 +130,21 @@ class Table
         }
     }
 
-    drawBottomLeft()
+    drawTopLeft()
     {
-        var cursor = this.cursor;
+        this.drawVertical(0);
+    }
 
-        for (var x = cursor; x < this.cursor + this.lineWidth; x++)
+    drawTopRight()
+    {
+        this.drawVertical(this.lineLengthX);
+    }
+
+    drawBottom(xOffset)
+    {
+        var cursor = this.cursor + xOffset;
+
+        for (var x = cursor; x < this.cursor + xOffset + this.lineWidth; x++)
         {
             for (var y = this.rows - this.paddingY; y > (this.rows - this.paddingY) - this.lineLengthY; y--)
             {
@@ -137,6 +152,42 @@ class Table
             }
             cursor++;
         }
+    }
+
+    drawBottomLeft()
+    {
+        this.drawBottom(0);
+    }
+
+    drawBottomRight()
+    {
+        this.drawBottom(this.lineLengthX);
+    }
+
+    drawHorizontal(yOffset)
+    {
+        for (var x = this.cursor + this.lineWidth + 1; x < this.cursor + this.lineLengthX - 1; x++)
+        {
+            for (var y = this.paddingY + yOffset - 1; y < this.paddingY + yOffset + this.lineWidth - 1; y++)
+            {
+                this.on(x, y);
+            }
+        }        
+    }
+
+    drawHorizontalTop()
+    {
+        this.drawHorizontal(0);
+    }
+
+    drawHorizontalMiddle()
+    {
+        this.drawHorizontal(this.lineLengthY);
+    }
+
+    drawHorizontalBottom()
+    {
+        this.drawHorizontal(this.lineLengthY * 2);
     }
 
     print0()
