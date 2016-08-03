@@ -87,6 +87,14 @@ class Table
     {
         if ('0' == c) this.print0();
         else if ('1' == c) this.print1();
+        else if ('2' == c) this.print2();
+        else if ('3' == c) this.print3();
+        else if ('4' == c) this.print4();
+        else if ('5' == c) this.print5();
+        else if ('6' == c) this.print6();
+        else if ('7' == c) this.print7();
+        else if ('8' == c) this.print8();
+        else if ('9' == c) this.print9();
         else alert("ERROR: Character '" + c + "' not printable!");
 
         this.cursor += this.paddingX + this.lineLengthX;
@@ -94,11 +102,89 @@ class Table
         return this;
     }
 
-    print1()
+    print0()
     {
         this.drawTopLeft();
         this.drawTopRight();
         this.drawBottomLeft();
+        this.drawBottomRight();
+        this.drawHorizontalTop();
+        this.drawHorizontalBottom();
+    }
+
+    print1()
+    {
+        this.drawTopRight();
+        this.drawBottomRight();
+    }
+
+    print2()
+    {
+        this.drawTopRight();
+        this.drawBottomLeft();
+        this.drawHorizontalTop();
+        this.drawHorizontalMiddle();
+        this.drawHorizontalBottom();
+    }
+
+    print3()
+    {
+        this.drawTopRight();
+        this.drawBottomRight();
+        this.drawHorizontalTop();
+        this.drawHorizontalMiddle();
+        this.drawHorizontalBottom();
+    }
+
+    print4()
+    {
+        this.drawTopLeft();
+        this.drawTopRight();
+        this.drawBottomRight();
+        this.drawHorizontalMiddle();
+    }
+
+    print5()
+    {
+        this.drawTopLeft();
+        this.drawBottomRight();
+        this.drawHorizontalTop();
+        this.drawHorizontalMiddle();
+        this.drawHorizontalBottom();
+    }
+
+    print6()
+    {
+        this.drawTopLeft();
+        this.drawBottomLeft();
+        this.drawBottomRight();
+        this.drawHorizontalTop();
+        this.drawHorizontalMiddle();
+        this.drawHorizontalBottom();
+    }
+
+    print7()
+    {
+        this.drawTopRight();
+        this.drawBottomRight();
+        this.drawHorizontalTop();
+    }
+
+    print8()
+    {
+        this.drawTopLeft();
+        this.drawTopRight();
+        this.drawBottomLeft();
+        this.drawBottomRight();
+        this.drawHorizontalTop();
+        this.drawHorizontalMiddle();
+        this.drawHorizontalBottom();
+    }
+
+    print9()
+    {
+        this.drawTopLeft();
+        this.drawTopRight();
         this.drawBottomRight();
         this.drawHorizontalTop();
         this.drawHorizontalMiddle();
@@ -172,10 +258,6 @@ class Table
     {
         this.drawHorizontal(this.lineLengthY * 2);
     }
-
-    print0()
-    {
-    }
 }
 
 $(function() {
@@ -184,5 +266,5 @@ $(function() {
     var table = new Table(rows, columns)
         .render('#content', 'display');
 
-    table.print("11");
+    table.print("67890");
 });
