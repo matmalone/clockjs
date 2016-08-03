@@ -96,17 +96,6 @@ class Table
 
     print1()
     {
-        var cursor = this.cursor;
-
-        // for (var x = 0; x < this.lineWidth; x++)
-        // {
-        //     for (var y = this.paddingY; y < this.rows - this.paddingY; y++)
-        //     {
-        //         this.on(cursor, y);
-        //     }
-        //     cursor++;
-        // }
-
         this.drawTopLeft();
         this.drawTopRight();
         this.drawBottomLeft();
@@ -118,15 +107,12 @@ class Table
 
     drawVertical(xOffset)
     {
-        var cursor = this.cursor + xOffset;
-
-        for (var x = cursor; x < this.cursor + xOffset + this.lineWidth; x++)
+        for (var x = this.cursor + xOffset; x < this.cursor + xOffset + this.lineWidth; x++)
         {
             for (var y = this.paddingY; y < this.lineLengthY + this.paddingY; y++)
             {
-                this.on(cursor, y);
+                this.on(x, y);
             }
-            cursor++;
         }
     }
 
@@ -142,15 +128,12 @@ class Table
 
     drawBottom(xOffset)
     {
-        var cursor = this.cursor + xOffset;
-
-        for (var x = cursor; x < this.cursor + xOffset + this.lineWidth; x++)
+        for (var x = this.cursor + xOffset; x < this.cursor + xOffset + this.lineWidth; x++)
         {
             for (var y = this.rows - this.paddingY; y > (this.rows - this.paddingY) - this.lineLengthY; y--)
             {
-                this.on(cursor, y);
+                this.on(x, y);
             }
-            cursor++;
         }
     }
 
@@ -202,9 +185,4 @@ $(function() {
         .render('#content', 'display');
 
     table.print("11");
-
-    for (i = 0; i < 100; i++)
-    {
-        // table.on(getRandomInt(0, columns-1), getRandomInt(0, rows-1));
-    }
 });
