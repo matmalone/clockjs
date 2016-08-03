@@ -21,6 +21,8 @@ class Table
         // 1% line width
         this.lineWidth = Math.round(this.rows * .02);
 
+        this.lineLengthX = this.paddingX * 4;
+        this.lineLengthY = Math.round((this.rows - this.paddingY * 2) / 2);
     }
 
     render(container, id)
@@ -70,12 +72,11 @@ class Table
     print(str)
     {
         // reset the cursor to the start
-        this.cursor = 0;
+        this.cursor = this.paddingX;
 
         for (var i = 0; i < str.length; i++)
         {
             var c = str[i];
-            console.log(c);
             this.printChar(c);
         }
 
@@ -88,20 +89,53 @@ class Table
         else if ('1' == c) this.print1();
         else alert("ERROR: Character '" + c + "' not printable!");
 
+        this.cursor += this.paddingX + this.lineLengthX;
+
         return this;
     }
 
     print1()
     {
-        this.cursor += this.paddingX;
+        var cursor = this.cursor;
 
-        for (var x = 0; x < this.lineWidth; x++)
+        // for (var x = 0; x < this.lineWidth; x++)
+        // {
+        //     for (var y = this.paddingY; y < this.rows - this.paddingY; y++)
+        //     {
+        //         this.on(cursor, y);
+        //     }
+        //     cursor++;
+        // }
+
+        this.drawTopLeft();
+        this.drawBottomLeft();
+    }
+
+    drawTopLeft()
+    {
+        var cursor = this.cursor;
+
+        for (var x = cursor; x < this.cursor + this.lineWidth; x++)
         {
-            for (var y = this.paddingY; y < this.rows - this.paddingY; y++)
+            for (var y = this.paddingY; y < this.lineLengthY + this.paddingY; y++)
             {
-                this.on(this.cursor, y);
+                this.on(cursor, y);
             }
-            this.cursor++;
+            cursor++;
+        }
+    }
+
+    drawBottomLeft()
+    {
+        var cursor = this.cursor;
+
+        for (var x = cursor; x < this.cursor + this.lineWidth; x++)
+        {
+            for (var y = this.rows - this.paddingY; y > (this.rows - this.paddingY) - this.lineLengthY; y--)
+            {
+                this.on(cursor, y);
+            }
+            cursor++;
         }
     }
 
